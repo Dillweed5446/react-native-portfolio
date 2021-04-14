@@ -1,0 +1,23 @@
+{
+  "name": "portfolio_app_back-end",
+  "version": "1.0.0",
+  "description": "Node.js backend for my react native portfolio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dillweed5446/react-native-portfolio.git"
+  },
+  "keywords": [
+    "portfolio",
+    "app"
+  ],
+  "author": "Paul Dill",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Dillweed5446/react-native-portfolio/issues"
+  },
+  "homepage": "https://github.com/Dillweed5446/react-native-portfolio#readme"
+}
