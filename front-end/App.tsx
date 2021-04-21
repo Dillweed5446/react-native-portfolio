@@ -4,7 +4,7 @@ import { StyleSheet, ScrollView, View, Text } from 'react-native'
 import fontStyles from './styles'
 import HeaderBar from './components/headerbar'
 import FooterBar from './components/footer'
-import ResponsiveImageText from './components/responsiveImageText'
+// import ResponsiveImageText from './components/responsiveImageText'
 
 const styles = StyleSheet.create({
   scrollContainer: {
@@ -47,6 +47,14 @@ const styles = StyleSheet.create({
     paddingLeft: 'auto',
     paddingRight: 'auto'
   },
+  openSourceContainer: {
+    borderBottomColor: 'red',
+    borderBottomWidth: 2,
+    paddingTop: 100,
+    paddingBottom: 100,
+    paddingLeft: 'auto',
+    paddingRight: 'auto'
+  },
   contactContainer: {
     borderBottomColor: 'red',
     borderBottomWidth: 2,
@@ -71,7 +79,7 @@ export default function App () {
       </View>
       <View style={styles.aboutContainer}>
         <Text style={[fontStyles.header2, { alignSelf: 'center', borderBottomWidth: 2, borderBottomColor: 'blue', marginBottom: 8 }]}>About me</Text>
-        <ResponsiveImageText>
+        {/* <ResponsiveImageText>
         {`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         Fermentum odio eu feugiat pretium nibh ipsum consequat. Tellus at urna condimentum mattis pellentesque id nibh tortor id. Fermentum
         posuere urna nec tincidunt praesent semper. Id eu nisl nunc mi ipsum faucibus vitae aliquet. Aliquam ut porttitor leo a diam sollicitudin tempor id.
@@ -79,7 +87,7 @@ export default function App () {
         Erat pellentesque adipiscing commodo elit at imperdiet dui accumsan. Tincidunt ornare massa eget egestas purus. Non sodales neque sodales ut. Viverra tellus in hac habitasse.
         Nulla facilisi morbi tempus iaculis urna. Lacus luctus accumsan tortor posuere ac ut consequat. Integer eget aliquet nibh praesent tristique. Pellentesque habitant morbi tristique
         senectus et. Condimentum mattis pellentesque id nibh tortor id aliquet. At erat pellentesque adipiscing commodo elit.`}
-        </ResponsiveImageText>
+        </ResponsiveImageText> */}
       </View>
       <View style={styles.servicesContainer}>
         <Text style={[fontStyles.header3, { alignSelf: 'center' }]}>Services</Text>
@@ -91,6 +99,12 @@ export default function App () {
         <Text style={[fontStyles.header3, { alignSelf: 'center' }]}>Projects</Text>
         <Text style={[fontStyles.paragraph, { alignSelf: 'center', width: '80%' }]}>Projects will go here in a grid/flex layout</Text>
       </View>
+
+      <View style={styles.openSourceContainer}>
+        <Text style={[fontStyles.header3, { alignSelf: 'center' }]}>Open Source Contributions</Text>
+        <Text style={[fontStyles.paragraph, { alignSelf: 'center', width: '80%' }]}>Open source projects will go here in a grid/flex layout</Text>
+      </View>
+
       <View style={styles.contactContainer}>
         <Text style={[fontStyles.header3, { alignSelf: 'center' }]}>Contact Me</Text>
         <Text style={[fontStyles.paragraph, { alignSelf: 'center', width: '80%' }]}>Create contact form for this section</Text>
