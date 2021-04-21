@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import fontStyles from '../styles'
+import { useStylesheet } from 'react-native-responsive-ui/dist/typescript/index' // This is temporary until the package is fixed
 
 interface ImageProps {
 style?: React.ReactNode,
@@ -27,37 +28,50 @@ const styles = StyleSheet.create({
 })
 
 export default function ResponsiveImageText ({ style, children }: ImageProps) {
-  const [mQuery, setMQuery] = React.useState<any>({
-    matches: window.innerWidth > 850
-  })
+  // const [mQuery, setMQuery] = React.useState<any>({
+  //   matches: window.innerWidth > 850
+  // })
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(min-width: 850px)')
-    mediaQuery.addListener(setMQuery)
-    // this is the cleanup function to remove the listener
-    return () => mediaQuery.removeListener(setMQuery)
-  }, [])
+  // useEffect(() => {
+  //   const mediaQuery = window.matchMedia('(min-width: 850px)')
+  //   mediaQuery.addListener(setMQuery)
+  //   // this is the cleanup function to remove the listener
+  //   return () => mediaQuery.removeListener(setMQuery)
+  // }, [])
 
-  if (mQuery && !mQuery.matches) {
-    return (
-      <View style={styles.smallScreen}>
-          <Image
-        style={styles.profileImage}
-        source={require('../assets/profilepic.jpg')}
-        />
-        <Text style={[fontStyles.paragraph, { alignSelf: 'center', width: '80%' }]}>{children}</Text>
-      </View>
+  const staticStyle = [
+    {
+      query: { minWidth: 850 },
+      style: {
+        image: {
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-around'
+        }
+      }
+    },
+    {
+      query: { maxWidth: 849 },
+      style: {
+        image: {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-around'
+        }
+      }
+    }
+  ]
+  const responsiveStyle = useStylesheet(staticStyle)
 
-    )
-  } else {
-    return (
-        <View style={styles.largeScreen}>
-        <Image
-      style={styles.profileImage}
-      source={require('../assets/profilepic.jpg')}
-      />
-      <Text style={[fontStyles.paragraph, { alignSelf: 'center', width: '80%' }]}>{children}</Text>
-    </View>
-    )
-  }
+  return (
+          <View style={responsiveStyle.image}>
+              <Image
+            style={styles.profileImage}
+            source={require('../assets/profilepic.jpg')}
+            />
+            <Text style={[fontStyles.paragraph, { alignSelf: 'center', width: '80%' }]}>{children}</Text>
+          </View>
+
+  )
 }
