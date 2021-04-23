@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { Pressable, View } from 'react-native'
+import { StyleSheet, Pressable, View, Modal } from 'react-native'
 import { Icon } from 'react-native-elements'
-import DropdownMenu from './dropdownMenu'
 
 interface Props {
     children?: React.ReactNode,
@@ -9,23 +8,48 @@ interface Props {
 
 }
 
+const styles = StyleSheet.create({
+  menu: {
+    flex: 1,
+    boxShadow: '8px 8px 60px rgba(0, 0, 300, .9)'
+  }
+})
+
 export default function HamburgerDropdownMenu ({ children, style }: Props) {
   const [menuOpen, toggleMenu] = useState(false)
   const menuOptions = [
     { name: 'Home', href: '/#top' },
-    { name: 'About me', href: '/#About' },
+    { name: 'About', href: '/#about' },
+    { name: 'Services', href: '/#services' },
     { name: 'Projects', href: '/#projects' },
-    { name: 'Contact', href: 'mailto:paul@pdill.dev' },
+    { name: 'Open Source', href: '/#opensource' },
+    { name: 'Contact', href: '/#contact' },
     { name: 'Resume', href: 'buggah_no_exist' }
   ]
 
   return (
     <View>
-      <DropdownMenu menuOptionsArray={menuOptions} menuToggled={menuOpen}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={menuOpen}
+        onRequestClose={() => {
+          toggleMenu(!menuOpen)
+        }}
+        >
         <Pressable onPress={() => toggleMenu(true)}>
-        <Icon name='menu' type='material'>{children}</Icon>
+          <View style={styles.menu}>
+            {menuOpen
+              ? Object.values(menuOptions).map((item, index) => (
+                  <Pressable key={index} onPress={() => toggleMenu(!menuOpen)}>
+                    <a href={item.href}>{item.name}</a>
+                  </Pressable>
+              ))
+              : <Icon name='menu' type='material' />
+            }
+          </View>
         </Pressable>
-      </DropdownMenu>
+      </Modal>
     </View>
   )
 }

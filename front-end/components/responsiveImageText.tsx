@@ -1,11 +1,13 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import fontStyles from '../styles'
-import { useStylesheet } from 'react-native-responsive-ui/dist/typescript/index' // This is temporary until the package is fixed
+import '@expo/match-media'
+import { useMediaQuery } from 'react-responsive'
 
 interface ImageProps {
 style?: React.ReactNode,
-children: React.ReactNode
+children: React.ReactNode,
+id?: string
 }
 
 const styles = StyleSheet.create({
@@ -27,51 +29,30 @@ const styles = StyleSheet.create({
   }
 })
 
-export default function ResponsiveImageText ({ style, children }: ImageProps) {
-  // const [mQuery, setMQuery] = React.useState<any>({
-  //   matches: window.innerWidth > 850
-  // })
+export default function ResponsiveImageText ({ style, children, id }: ImageProps) {
+  const isMobileDevice = useMediaQuery({
+    maxDeviceWidth: 850,
+    query: '(max-device-width: 850px)'
+  })
 
-  // useEffect(() => {
-  //   const mediaQuery = window.matchMedia('(min-width: 850px)')
-  //   mediaQuery.addListener(setMQuery)
-  //   // this is the cleanup function to remove the listener
-  //   return () => mediaQuery.removeListener(setMQuery)
-  // }, [])
-
-  const staticStyle = [
-    {
-      query: { minWidth: 850 },
-      style: {
-        image: {
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-around'
-        }
-      }
-    },
-    {
-      query: { maxWidth: 849 },
-      style: {
-        image: {
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-around'
-        }
-      }
-    }
-  ]
-  const responsiveStyle = useStylesheet(staticStyle)
-
-  return (
-          <View style={responsiveStyle.image}>
+  if (isMobileDevice) {
+    return (
+          <View style={styles.smallScreen}>
               <Image
             style={styles.profileImage}
             source={require('../assets/profilepic.jpg')}
             />
             <Text style={[fontStyles.paragraph, { alignSelf: 'center', width: '80%' }]}>{children}</Text>
           </View>
-
+    )
+  }
+  return (
+    <View style={styles.largeScreen}>
+        <Image
+      style={styles.profileImage}
+      source={require('../assets/profilepic.jpg')}
+      />
+      <Text style={[fontStyles.paragraph, { alignSelf: 'center', width: '80%' }]}>{children}</Text>
+    </View>
   )
 }

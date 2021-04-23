@@ -5,7 +5,8 @@ import { Icon } from 'react-native-elements'
 
 interface Props {
     title?: string
-    style?: object
+    style?: object,
+    id?: string
 }
 
 const styles = StyleSheet.create({
